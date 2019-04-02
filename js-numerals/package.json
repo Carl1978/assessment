@@ -1,0 +1,21 @@
+{
+    "name": "js-numerals",
+    "version": "1.0.0",
+    "description": "Javascript/Frontend Programmer - Exercise 1\r =============================",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "parcel index.html"
+    },
+    "keywords": [],
+    "author": "Carl Phillips",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/cli": "^7.2.3",
+        "@babel/core": "^7.4.0",
+        "@babel/preset-env": "^7.4.2",
+        "jest": "^24.6.0",
+        "jest-cli": "^24.6.0",
+        "parcel-bundler": "^1.12.3"
+    }
+}
