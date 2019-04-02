@@ -23,6 +23,7 @@ describe("convertNumberToString", () => {
         expect(convertNumberToString(19)).toBe("nineteen");
         expect(convertNumberToString(55)).toBe("fifty-five");
         expect(convertNumberToString(99)).toBe("ninety-nine");
+        expect(convertNumberToString(20)).toBe("twenty");
     });
 });
 
@@ -34,6 +35,8 @@ describe("convertNumberToParts", () => {
         expect(convertNumberToParts(1999)).toEqual([99, 19]);
         expect(convertNumberToParts(17999)).toEqual([99, 9, 17]);
         expect(convertNumberToParts(24321)).toEqual([21, 3, 24]);
+        expect(convertNumberToParts(200)).toEqual([0, 2]);
+        expect(convertNumberToParts(220)).toEqual([20, 2]);
     });
 });
 
@@ -54,6 +57,9 @@ describe("buildNumberToString", () => {
         expect(buildNumberToString(24321)).toEqual(
             "twenty-four thousand three hundred and twenty-one"
         );
+        expect(buildNumberToString(200)).toEqual("two hundred");
+        expect(buildNumberToString(210)).toEqual("two hundred and ten");
+        expect(buildNumberToString(220)).toEqual("two hundred and twenty");
     });
 
     it("should not accept any value other than numbers", () => {

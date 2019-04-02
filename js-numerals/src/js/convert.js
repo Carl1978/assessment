@@ -46,6 +46,11 @@ export const convertNumberToString = num => {
             let strNumber = arr.map((digit, index) => {
                 return arrDigits[index][digit];
             });
+            // check for "zero" and remove
+            let idxZero = strNumber.indexOf(arr1to19[0]);
+            if (idxZero != -1) {
+                strNumber.splice(idxZero, 1);
+            }
             return strNumber.join("-");
         }
     }
@@ -88,7 +93,6 @@ export const convertNumberToParts = num => {
 
 export const buildNumberToString = num => {
     if (typeof num === "number") {
-        const arrDelimeter = ["-", "and"];
         let parts = convertNumberToParts(num);
         let len = parts.length;
         let strNumber = "";
@@ -103,7 +107,9 @@ export const buildNumberToString = num => {
             // hundreds
             else if (index == 1) {
                 if (parts[index] != 0) {
-                    strNumber = str + " hundred and " + strNumber;
+                    if (parts[index - 1] != 0)
+                        strNumber = str + " hundred and " + strNumber;
+                    else strNumber = str + " hundred";
                 }
             }
             // thousands

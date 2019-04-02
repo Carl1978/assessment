@@ -74,7 +74,7 @@ input#input-number {
     border: none;
     padding: 10px;
 
-    text-align: left;
+    text-align: center;
     box-shadow: 5px 5px 6px 1px rgba(0, 0, 0, 0.2);
 }
 
