@@ -85,3 +85,40 @@ export const convertNumberToParts = num => {
 
     return null;
 };
+
+export const buildNumberToString = num => {
+    if (typeof num === "number") {
+        const arrDelimeter = ["-", "and"];
+        let parts = convertNumberToParts(num);
+        let len = parts.length;
+        let strNumber = "";
+        let index = 0;
+        let str = "";
+        while (index < len) {
+            str = convertNumberToString(parts[index]);
+            // 0-99
+            if (index == 0) {
+                strNumber = str;
+            }
+            // hundreds
+            else if (index == 1) {
+                if (parts[index] != 0) {
+                    strNumber = str + " hundred and " + strNumber;
+                }
+            }
+            // thousands
+            else if (index == 2) {
+                if (parts[index] != 0) {
+                    if (parts[index - 1] != 0)
+                        strNumber = str + " thousand " + strNumber;
+                    else strNumber = str + " thousand and " + strNumber;
+                }
+            }
+            index++;
+        }
+
+        return strNumber;
+    }
+
+    return null;
+};

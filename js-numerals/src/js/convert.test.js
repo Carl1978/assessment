@@ -1,4 +1,8 @@
-import { convertNumberToString, convertNumberToParts } from "./convert";
+import {
+    convertNumberToString,
+    convertNumberToParts,
+    buildNumberToString
+} from "./convert";
 
 describe("convertNumberToString", () => {
     it("should convert a number into a string", () => {
@@ -30,5 +34,29 @@ describe("convertNumberToParts", () => {
         expect(convertNumberToParts(1999)).toEqual([99, 19]);
         expect(convertNumberToParts(17999)).toEqual([99, 9, 17]);
         expect(convertNumberToParts(24321)).toEqual([21, 3, 24]);
+    });
+});
+
+describe("buildNumberToString", () => {
+    it("should build a number string from a number", () => {
+        expect(buildNumberToString(7)).toBe("seven");
+        expect(buildNumberToString(42)).toEqual("forty-two");
+        expect(buildNumberToString(789)).toEqual(
+            "seven hundred and eighty-nine"
+        );
+        expect(buildNumberToString(2001)).toEqual("two thousand and one");
+        expect(buildNumberToString(1999)).toEqual(
+            "nineteen hundred and ninety-nine"
+        );
+        expect(buildNumberToString(17999)).toEqual(
+            "seventeen thousand nine hundred and ninety-nine"
+        );
+        expect(buildNumberToString(24321)).toEqual(
+            "twenty-four thousand three hundred and twenty-one"
+        );
+    });
+
+    it("should not accept any value other than numbers", () => {
+        expect(buildNumberToString("123")).toBe(null);
     });
 });
