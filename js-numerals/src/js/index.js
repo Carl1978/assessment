@@ -12,7 +12,7 @@ const initListeners = () => {
 const handleSubmit = event => {
     if (event) {
         event.preventDefault();
-        if (inputNumber) {
+        if (inputNumber && inputNumber.value !== "") {
             let num = parseInt(inputNumber.value);
             let str = buildNumberToString(num);
 

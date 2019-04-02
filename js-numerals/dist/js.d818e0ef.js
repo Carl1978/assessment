@@ -249,7 +249,7 @@ var handleSubmit = function handleSubmit(event) {
   if (event) {
     event.preventDefault();
 
-    if (inputNumber) {
+    if (inputNumber && inputNumber.value !== "") {
       var num = parseInt(inputNumber.value);
       var str = (0, _convert.buildNumberToString)(num);
 
