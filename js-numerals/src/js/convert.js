@@ -52,3 +52,36 @@ export const convertNumberToString = num => {
 
     return null;
 };
+
+export const convertNumberToParts = num => {
+    if (typeof num === "number") {
+        let arr = [];
+        let str = num.toString();
+        let len = str.length;
+        let end = 0;
+        let start = 0;
+        let count = 0;
+        let part = 0;
+
+        while (len > 0) {
+            end = start = len;
+            start -= 2;
+            if (start < 0) start = 0;
+            part = parseInt(str.slice(start, end));
+            if (count == 1) {
+                if (part > 19) {
+                    start++;
+                    part = parseInt(str.slice(start, end));
+                }
+            }
+
+            arr.push(part);
+            len = start;
+            count++;
+        }
+
+        return arr;
+    }
+
+    return null;
+};
