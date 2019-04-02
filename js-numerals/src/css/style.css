@@ -1,3 +1,8 @@
+:root {
+    --my-blue: lightblue;
+    --my-black: rgb(41, 41, 41);
+}
+
 /* CSS Reset */
 * {
     padding: 0;
@@ -8,6 +13,102 @@
     color: black;
 }
 
-h1 {
-    background-color: red;
+h1,
+h2 {
+    background-color: var(--my-blue);
+    padding: 5px 10px;
+}
+
+h2 {
+    font-size: 12px;
+}
+
+div {
+    margin: 10px 0;
+}
+
+div.container {
+    width: 300px;
+    height: 100%;
+    padding: 20px;
+    margin: 20px auto;
+    border: 2px dashed #ddd;
+
+    border-radius: 8px;
+    background-color: #eee;
+    color: black;
+    text-align: center;
+}
+
+.title {
+    margin-bottom: 10px;
+
+    text-align: center;
+}
+
+form.my-form {
+    height: auto;
+    padding: 10px;
+
+    border-radius: 8px;
+    background-color: #ccc;
+    color: black;
+    box-shadow: 5px 5px 6px 1px rgba(0, 0, 0, 0.2);
+}
+
+div.container-child {
+    text-align: center;
+}
+
+div.container-child span {
+    margin-bottom: 10px;
+
+    display: block;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+
+/* Input number field */
+input#input-number {
+    width: 90%;
+    border: none;
+    padding: 10px;
+
+    text-align: left;
+    box-shadow: 5px 5px 6px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Submit button styles */
+input[type="submit"] {
+    width: 100%;
+    padding: 10px 30px;
+    border: none;
+    margin-bottom: 15px;
+
+    border-radius: 12px;
+    background-color: var(--my-black);
+    color: white;
+    box-shadow: 5px 5px 6px 1px rgba(255, 255, 255, 0.5);
+}
+
+input[type="submit"]:hover {
+    background-color: black;
+    color: white;
+}
+
+input[type="submit"]:active {
+    transform: scale(0.98, 0.9);
+    transition: 50ms;
+}
+
+/* Output text field */
+div#output-text {
+    width: 90%;
+    height: 100%;
+    padding: 10px;
+    margin: 0 auto;
+
+    /* border-radius: 8px; */
+    background-color: white;
+    box-shadow: 5px 5px 6px 1px rgba(0, 0, 0, 0.2);
 }

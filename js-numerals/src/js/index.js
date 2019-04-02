@@ -1,1 +1,23 @@
-console.log("Hello World!");
+// DOM elements
+const myForm = document.getElementsByClassName("my-form")[0];
+const inputNumber = document.getElementById("input-number");
+const outputText = document.getElementById("output-text");
+
+const initListeners = () => {
+    myForm.addEventListener("submit", handleSubmit);
+};
+
+const handleSubmit = event => {
+    if (event) {
+        event.preventDefault();
+        if (inputNumber) {
+            let num = parseInt(inputNumber.value);
+            console.log(`handleSubmit : num : ${num}`);
+            if (outputText) {
+                outputText.textContent = num;
+            }
+        }
+    }
+};
+
+initListeners();
