@@ -72,11 +72,11 @@ export const convertNumberToParts = num => {
             end = start = len;
             start -= 2;
             if (start < 0) start = 0;
-            part = parseInt(str.slice(start, end));
+            part = getPartNumber(str, start, end);
             if (count == 1) {
                 if (part > 19) {
                     start++;
-                    part = parseInt(str.slice(start, end));
+                    part = getPartNumber(str, start, end);
                 }
             }
 
@@ -90,6 +90,8 @@ export const convertNumberToParts = num => {
 
     return null;
 };
+
+const getPartNumber = (str, start, end) => parseInt(str.slice(start, end));
 
 export const buildNumberToString = num => {
     if (typeof num === "number") {
