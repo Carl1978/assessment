@@ -1,10 +1,17 @@
 import React from "react";
 import User from "./User";
 
-const Users = ({ users, page, maxUsersToDisplay }) => {
+const Users = ({ users, page, maxUsersToDisplay, onToggleActivate }) => {
   const startIdx = (page - 1) * maxUsersToDisplay;
   const userList = users.map((user, index) => {
-    return <User key={user.id} user={user} count={startIdx + index + 1} />;
+    return (
+      <User
+        key={user.id}
+        user={user}
+        count={startIdx + index + 1}
+        onToggleActivate={onToggleActivate}
+      />
+    );
   });
 
   return (
@@ -13,10 +20,11 @@ const Users = ({ users, page, maxUsersToDisplay }) => {
       <table className="table-users">
         <thead>
           <tr>
-            <th>#</th>
+            <th style={{ width: "50px" }}>Status</th>
+            <th style={{ width: "50px" }}>#</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Created At</th>
+            <th style={{ width: "250px" }}>Created At</th>
           </tr>
         </thead>
         <tbody>{userList}</tbody>

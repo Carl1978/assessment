@@ -15,13 +15,13 @@ class App extends Component {
     fetch(url)
       .then(res => res.json())
       .then(json => {
-        let users = json;
-        users = users.map(user => {
+        let users = json.map(user => {
+          user.first_name = user.first_name.trim();
           return user;
         });
 
         this.setState({
-          users: [...users],
+          users,
           pageEnd: this.getPageEnd(users.length)
         });
       });
@@ -36,6 +36,16 @@ class App extends Component {
   componentDidMount() {
     this.getUsers("http://js-assessment-backend.herokuapp.com/users");
   }
+
+  onToggleActivate = (id, e) => {
+    let users = [...this.state.users];
+    let userIdx = users.findIndex(user => user.id === id);
+    let user = users[userIdx];
+    user.status = user.status === "active" ? "locked" : "active";
+    this.setState({
+      users
+    });
+  };
 
   render() {
     const { users, pageEnd } = this.state;
@@ -55,6 +65,7 @@ class App extends Component {
                     users={users}
                     pageEnd={pageEnd}
                     maxUsersToDisplay={maxUsersToDisplay}
+                    onToggleActivate={this.onToggleActivate}
                   />
                 );
               }}
