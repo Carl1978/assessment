@@ -83,6 +83,9 @@ th {
 .table-users tr:nth-child(even) {
   background-color: #ddd;
 }
+.paginate-list ul {
+  width: 415px;
+}
 
 .paginate-list ul {
   position: absolute;
@@ -123,4 +126,9 @@ th {
 
 li a.active {
   font-weight: bold;
+}
+
+#prevPage,
+#nextPage {
+  font-weight: normal;
 }

@@ -31,13 +31,27 @@ class Pagination extends Component {
 
   render() {
     const { page, pageEnd } = this.props;
+    let prevPage = page - 1;
+    let nextPage = page + 1;
+    if (prevPage <= 0) prevPage = 1;
+    if (nextPage >= pageEnd) nextPage = pageEnd;
     return (
       <div className="paginate-list">
         <ul>
           <li key={uuid.v4()}>
             <NavLink to={"/users/1"}>First</NavLink>
           </li>
+          <li key={uuid.v4()}>
+            <NavLink id="prevPage" to={"/users/" + prevPage}>
+              Prev
+            </NavLink>
+          </li>
           {this.calcPageNumbers(page, pageEnd)}
+          <li key={uuid.v4()}>
+            <NavLink id="nextPage" to={"/users/" + nextPage}>
+              Next
+            </NavLink>
+          </li>
           <li key={uuid.v4()}>
             <NavLink to={"/users/" + pageEnd}>Last</NavLink>
           </li>

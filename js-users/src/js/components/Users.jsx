@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import User from "./User";
 
 const Users = ({ users, page, maxUsersToDisplay, onToggleActivate }) => {
@@ -17,6 +18,9 @@ const Users = ({ users, page, maxUsersToDisplay, onToggleActivate }) => {
   return (
     <div className="container-users">
       <h1>Users List</h1>
+      <NavLink exact to="/new">
+        Create New User
+      </NavLink>
       <table className="table-users">
         <thead>
           <tr>
