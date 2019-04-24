@@ -3,7 +3,15 @@ import Users from "../Users";
 import Pagination from "../Pagination";
 
 const Show = props => {
-  const { users, match, pageEnd, maxUsersToDisplay, onToggleActivate } = props;
+  const {
+    users,
+    match,
+    pageEnd,
+    maxUsersToDisplay,
+    onToggleActivate,
+    onSelect,
+    userSelectedId
+  } = props;
   let page = match.params.page;
 
   if (page === undefined) {
@@ -22,6 +30,8 @@ const Show = props => {
         page={page}
         maxUsersToDisplay={maxUsersToDisplay}
         onToggleActivate={onToggleActivate}
+        onSelect={onSelect}
+        userSelectedId={userSelectedId}
       />
       <Pagination page={page} pageEnd={pageEnd} />
     </div>

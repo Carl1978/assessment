@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ userSelectedId }) => {
   return (
     <header>
       <div className="nav-bar">
@@ -16,11 +16,13 @@ const NavBar = () => {
               New
             </NavLink>
           </li>
-          <li>
-            <NavLink exact to="/edit">
-              Edit
-            </NavLink>
-          </li>
+          {userSelectedId === null ? null : (
+            <li>
+              <NavLink exact to="/edit">
+                Edit
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
     </header>

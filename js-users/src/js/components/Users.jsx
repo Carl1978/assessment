@@ -2,7 +2,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import User from "./User";
 
-const Users = ({ users, page, maxUsersToDisplay, onToggleActivate }) => {
+const Users = ({
+  users,
+  page,
+  maxUsersToDisplay,
+  onToggleActivate,
+  onSelect,
+  userSelectedId
+}) => {
   const startIdx = (page - 1) * maxUsersToDisplay;
   const userList = users.map((user, index) => {
     return (
@@ -11,6 +18,8 @@ const Users = ({ users, page, maxUsersToDisplay, onToggleActivate }) => {
         user={user}
         count={startIdx + index + 1}
         onToggleActivate={onToggleActivate}
+        onSelect={onSelect}
+        userSelectedId={userSelectedId}
       />
     );
   });

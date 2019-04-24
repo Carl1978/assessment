@@ -1,6 +1,6 @@
 import React from "react";
 
-const User = ({ user, count, onToggleActivate }) => {
+const User = ({ user, count, onToggleActivate, onSelect, userSelectedId }) => {
   const { id, first_name, last_name, created_at, status } = user;
   let classNameRowUser = "row-user";
   let buttonText = "Lock";
@@ -10,8 +10,19 @@ const User = ({ user, count, onToggleActivate }) => {
     buttonText = "Activate";
   }
 
+  classNameRowUser += " .row-user-select";
+
+  console.log("userSelectedId : " + userSelectedId);
+  console.log("id : " + id);
+
+  const isSelected = id === userSelectedId;
+
   return (
-    <tr className={classNameRowUser}>
+    <tr
+      style={isSelected ? { backgroundColor: "pink" } : null}
+      className={classNameRowUser}
+      onClick={() => onSelect(id)}
+    >
       <td>
         <button onClick={onToggleActivate.bind(this, id)}>{buttonText}</button>
       </td>

@@ -8,7 +8,10 @@ import Edit from "./components/layout/Edit";
 class App extends Component {
   state = {
     users: [],
-    pageEnd: 0
+    pageEnd: 0,
+    userCreated: null,
+    userSelectedId: null,
+    userSelected: null
   };
 
   getUsers(url) {
@@ -40,7 +43,46 @@ class App extends Component {
       }
     })
       .then(response => response.json())
-      .then(json => console.log(json));
+      .then(json => console.log(json))
+      .catch(err => console.log(err));
+  }
+
+  add(first_name, last_name) {
+    return fetch("http://js-assessment-backend.herokuapp.com/users", {
+      method: "POST",
+      body: JSON.stringify({
+        first_name: first_name,
+        last_name: last_name,
+        status: "active"
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  }
+
+  delete(url = "http://js-assessment-backend.herokuapp.com/users/???.json") {
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(json => console.log(json))
+      .catch(err => console.log(err));
+  }
+
+  get(url = "http://js-assessment-backend.herokuapp.com/users/???.json") {
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(json => console.log(json))
+      .catch(err => console.log(err));
   }
 
   addUsers(url) {
@@ -74,55 +116,12 @@ class App extends Component {
       .then(res => res.json())
       .then(json => console.log(json));
 
-    // fetch("http://js-assessment-backend.herokuapp.com/users/620.json", {
-    //   method: "PUT",
-    //   body: JSON.stringify({
-    //     first_name: "JANE1234",
-    //     last_name: "doe",
-    //     status: "active"
-    //   }),
-    //   headers: {
-    //     "Content-type": "application/json"
-    //   }
-    // })
-    //   .then(response => response.json())
-    //   .then(json => console.log(json));
-
-    // fetch("http://js-assessment-backend.herokuapp.com/users", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     first_name: "Jim",
-    //     last_name: "Doe",
-    //     status: "active"
-    //   }),
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // })
-    //   .then(res => res.json())
-    //   .then(json => console.log(json))
-    //   .catch(e => console.log(e));
-
-    // fetch("http://js-assessment-backend.herokuapp.com/users/622.json", {
-    //   method: "DELETE",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // })
-    //   .then(res => res.json())
-    //   .then(json => console.log(json));
-
-    //   fetch("http://js-assessment-backend.herokuapp.com/users/622.json", {
-    //     method: "DELETE",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     }
-    //   })
-    //     .then(res => res.json())
-    //     .then(json => console.log(json));
+    // DEBUG
+    //this.get("http://js-assessment-backend.herokuapp.com/users/354.json");
+    //this.delete("http://js-assessment-backend.herokuapp.com/users/627.json");
   }
 
-  onToggleActivate = (id, e) => {
+  handleToggleActivate = (id, e) => {
     let users = [...this.state.users];
     let userIdx = users.findIndex(user => user.id === id);
     let user = users[userIdx];
@@ -136,13 +135,48 @@ class App extends Component {
     });
   };
 
+  handleCreateUser = ({ firstname: first_name, lastname: last_name }) => {
+    let obj = null;
+    this.add(first_name, last_name)
+      .then(res => res.json())
+      .then(json => {
+        console.log(json);
+        this.setState({
+          userCreated: json
+        });
+      })
+      .catch(err => console.log("Error: ", err));
+  };
+
+  handleSelect = id => {
+    console.log("handleSelect : id : " + id);
+
+    const { users } = this.state;
+    console.log(users);
+    let userIndex = users.findIndex(user => user.id === id);
+    const user = users[userIndex];
+    console.log("handleSelect : user : ", user);
+
+    this.setState({
+      userSelectedId: id,
+      userSelected: user
+    });
+  };
+
   render() {
-    const { users, pageEnd } = this.state;
+    console.log(this.props);
+    const {
+      users,
+      pageEnd,
+      userCreated,
+      userSelectedId,
+      userSelected
+    } = this.state;
     const { maxUsersToDisplay } = this.props;
     return (
       <React.Fragment>
         <BrowserRouter>
-          <NavBar />
+          <NavBar userSelectedId={userSelectedId} />
           <Switch>
             <Route
               exact
@@ -154,13 +188,32 @@ class App extends Component {
                     users={users}
                     pageEnd={pageEnd}
                     maxUsersToDisplay={maxUsersToDisplay}
-                    onToggleActivate={this.onToggleActivate}
+                    onToggleActivate={this.handleToggleActivate}
+                    onSelect={this.handleSelect}
+                    userSelectedId={userSelectedId}
                   />
                 );
               }}
             />
-            <Route path="/new" component={New} />
-            <Route path="/edit" component={Edit} />
+            <Route
+              path="/new"
+              render={props => {
+                return (
+                  <New
+                    {...props}
+                    createUser={this.handleCreateUser}
+                    userCreated={userCreated}
+                  />
+                );
+              }}
+            />
+
+            <Route
+              path="/edit"
+              render={props => {
+                return <Edit {...props} userSelected={userSelected} />;
+              }}
+            />
           </Switch>
         </BrowserRouter>
       </React.Fragment>
